@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMoviesDirectorsTable extends Migration
+class CreateDirectorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateMoviesDirectorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('movies_directors', function (Blueprint $table) {
+        Schema::create('directors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('movie_id')->references('id')->on('movies');
-            $table->foreignId('director_id')->references('id')->on('directors');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateMoviesDirectorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('movies_directors');
+        Schema::dropIfExists('directors');
     }
 }

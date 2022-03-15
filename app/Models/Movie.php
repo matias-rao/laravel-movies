@@ -12,19 +12,19 @@ class Movie extends Model
     protected $fillable = [
         'name',
         'year',
-        'rank'
+        'rank',
+        'director_id',
     ];
 
     public function director(){
         return $this->belongsTo(Director::class);
     }
 
-    public function movieGenre(){
-        return $this->belongsToMany(MovieGenre::class);
+    public function genres(){
+        return $this->belongsToMany(Genre::class);
     }
 
-    public function roles(){
-        return $this->belongsToMany(Rol::class);
+    public function actors(){
+        return $this->belongsToMany(Actor::class);
     }
-
 }

@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rol;
+use App\Models\Actor;
 use Illuminate\Http\Request;
 
-class RolController extends Controller
+class ActorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,8 @@ class RolController extends Controller
      */
     public function index()
     {
-        //
+        $actors = Actor::all();
+        return view('actors.index', compact('actors'));
     }
 
     /**
@@ -24,7 +30,7 @@ class RolController extends Controller
      */
     public function create()
     {
-        //
+        return view('actors.create');
     }
 
     /**
@@ -35,16 +41,23 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $actor = new actor;
+
+        $actor->create([
+            'name' => $request['name'],
+            'gender' => 'M'
+        ]);
+
+        return redirect()->route('actor_index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Rol  $rol
+     * @param  \App\Models\Actor  $actor
      * @return \Illuminate\Http\Response
      */
-    public function show(Rol $rol)
+    public function show(Actor $actor)
     {
         //
     }
@@ -52,10 +65,10 @@ class RolController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Rol  $rol
+     * @param  \App\Models\Actor  $actor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rol $rol)
+    public function edit(Actor $actor)
     {
         //
     }
@@ -64,10 +77,10 @@ class RolController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Rol  $rol
+     * @param  \App\Models\Actor  $actor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rol $rol)
+    public function update(Request $request, Actor $actor)
     {
         //
     }
@@ -75,10 +88,10 @@ class RolController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Rol  $rol
+     * @param  \App\Models\Actor  $actor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rol $rol)
+    public function destroy(Actor $actor)
     {
         //
     }

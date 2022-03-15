@@ -5,15 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MovieGenre extends Model
+class Actor extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'genre'
+        'name',
+        'gender',
     ];
 
-    public function movie(){
+    public function movies()
+    {
         return $this->belongsToMany(Movie::class);
     }
+
 }

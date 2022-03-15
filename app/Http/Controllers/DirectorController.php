@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class DirectorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,8 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        //
+        $directors = Director::all();
+        return view('directors.index', compact('directors'));
     }
 
     /**
@@ -24,7 +29,7 @@ class DirectorController extends Controller
      */
     public function create()
     {
-        //
+        return view('directors.create');
     }
 
     /**
@@ -35,7 +40,13 @@ class DirectorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $director = new Director;
+
+        $director->create([
+            'name'=> $request['name'],
+        ]);
+
+        return redirect()->route('director_index');
     }
 
     /**

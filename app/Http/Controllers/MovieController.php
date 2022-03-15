@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Actor;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 
-class ActorController extends Controller
+class MovieController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,9 @@ class ActorController extends Controller
      */
     public function index()
     {
-        //
+        $movies = Movie::all();
+
+        return view('movies.index', compact('movies'));
     }
 
     /**
@@ -24,7 +30,7 @@ class ActorController extends Controller
      */
     public function create()
     {
-        //
+        return view('movies.create');
     }
 
     /**
@@ -35,16 +41,25 @@ class ActorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $movie = new Movie;
+
+        $movie->create([
+            'name'=>$request['name'],
+            'year'=>'1990',
+            'rank'=>'5',
+            'director_id'=>'1',
+        ]);
+
+        return redirect()->route('movie_index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Actor  $actor
+     * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function show(Actor $actor)
+    public function show(Movie $movie)
     {
         //
     }
@@ -52,10 +67,10 @@ class ActorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Actor  $actor
+     * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function edit(Actor $actor)
+    public function edit(Movie $movie)
     {
         //
     }
@@ -64,10 +79,10 @@ class ActorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Actor  $actor
+     * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Actor $actor)
+    public function update(Request $request, Movie $movie)
     {
         //
     }
@@ -75,10 +90,10 @@ class ActorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Actor  $actor
+     * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Actor $actor)
+    public function destroy(Movie $movie)
     {
         //
     }
