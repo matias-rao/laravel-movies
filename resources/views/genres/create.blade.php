@@ -5,10 +5,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Create Directors</div>
+                    <div class="card-header">Create Genres</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('director_store') }}">
+                        <form method="POST" action="{{ route('genre_store') }}">
                             @csrf
 
                             <x-field name="name" type="text"></x-field>

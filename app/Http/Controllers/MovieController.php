@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Director;
 use App\Models\Movie;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -19,7 +21,6 @@ class MovieController extends Controller
     public function index()
     {
         $movies = Movie::all();
-
         return view('movies.index', compact('movies'));
     }
 
@@ -30,7 +31,10 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return view('movies.create');
+        $directors = Director::all();
+        $genres = Genre::all();
+
+        return view('movies.create', compact('directors', 'genres'));
     }
 
     /**
@@ -41,14 +45,20 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        $movie = new Movie;
-
-        $movie->create([
+        $movie = Movie::where('name', $request->name)->first();
+        if($movie){
+            return back()
+                ->withErrors(['name' => 'Ya tiene una pelicula con ese nombre'])
+                ->withInput(['name' => $request->name]);
+        }
+        $movie= Movie::create([
             'name'=>$request['name'],
-            'year'=>'1990',
-            'rank'=>'5',
-            'director_id'=>'1',
+            'year'=>$request['year'],
+            'rank'=>'1',
+            'director_id'=> $request['director'],
         ]);
+
+        $movie->genres()->attach($request['genres']);
 
         return redirect()->route('movie_index');
     }
@@ -72,7 +82,9 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        //
+        $directors = Director::all();
+        $genres = Genre::all();
+        return view('movies.edit', compact('movie', 'directors', 'genres'));
     }
 
     /**
@@ -84,7 +96,14 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string',
+            'year' => 'required|integer',
+            'director_id' => 'exists:directors,id',
+            'genres' => 'exists:genres,id',
+        ]);
+
+        return redirect()->route('movie_index');;
     }
 
     /**

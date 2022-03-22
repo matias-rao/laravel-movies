@@ -17,7 +17,7 @@ class CreateMoviesTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('year');
-            $table->float('rank');
+            $table->float('rank')->nullable();
             $table->foreignId('director_id')->references('id')->on('directors');
             $table->timestamps();
         });

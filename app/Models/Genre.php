@@ -10,7 +10,7 @@ class Genre extends Model
     use HasFactory;
 
     protected $fillable = [
-        'genre'
+        'name'
     ];
 
     public function movies(){

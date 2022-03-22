@@ -40,9 +40,15 @@ class DirectorController extends Controller
      */
     public function store(Request $request)
     {
-        $director = new Director;
+        $director = Director::where('name', $request->name)->first();
 
-        $director->create([
+        if($director){
+            return back()
+                ->withErrors(['name' => 'Ya tiene un director con ese nombre'])
+                ->withInput(['name' => $request->name]);
+        }
+
+        $director = Director::create([
             'name'=> $request['name'],
         ]);
 
@@ -68,7 +74,7 @@ class DirectorController extends Controller
      */
     public function edit(Director $director)
     {
-        //
+        return view('directors.edit', compact('director'));
     }
 
     /**
@@ -80,7 +86,10 @@ class DirectorController extends Controller
      */
     public function update(Request $request, Director $director)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string'
+        ]);
+        dd($data);
     }
 
     /**

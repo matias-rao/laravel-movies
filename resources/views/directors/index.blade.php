@@ -16,6 +16,7 @@
         <tr>
             <th scope="row">{{$director->id}}</th>
             <td>{{$director->name}}</td>
+            <td>{{$director->movies}}</td>
             <td>
                 <div class="d-flex justify-content-end">
                     <div><a href="{{route('director_edit', $director->id)}}" class="btn btn-primary">Edit</a> </div>

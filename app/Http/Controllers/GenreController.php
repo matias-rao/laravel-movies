@@ -40,13 +40,19 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        $genre = new Genre;
+        $genre = Genre::where('name', $request->name)->first();
 
-        $genre->create([
-            'genre' =>$request['genre']
+        if($genre){
+            return back()
+                ->withErrors(['name' => 'Ya tiene un genero con ese nombre'])
+                ->withInput(['name' => $request->name]);
+        }
+
+        $genre= Genre::create([
+            'name' =>$request['name']
         ]);
 
-        return redirect()->route('actors.index');
+        return redirect()->route('genre_index');
     }
 
     /**
@@ -68,7 +74,7 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
-        //
+        return view('genres.edit', compact('genre'));
     }
 
     /**
@@ -80,7 +86,10 @@ class GenreController extends Controller
      */
     public function update(Request $request, Genre $genre)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string'
+        ]);
+        dd($data);
     }
 
     /**
