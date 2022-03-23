@@ -18,7 +18,7 @@ class CreateMoviesTable extends Migration
             $table->string('name');
             $table->integer('year');
             $table->float('rank')->nullable();
-            $table->foreignId('director_id')->references('id')->on('directors');
+            $table->foreignId('director_id')->references('id')->on('directors')->onDelete('cascade');
             $table->timestamps();
         });
     }

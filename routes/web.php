@@ -25,10 +25,13 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//Route::resource('actors', ActorController::class); -> Evita poner todas las rutas  de abajo, magia de laravel (en este caso no sirve pq le puse los name a las rutas que no son por defecto)
+
 //Actors
 Route::get('/actors/{actor}/edit', [ActorController::class, 'edit'])->name('actor_edit');
 Route::get('/actors/create', [ActorController::class, 'create'])->name('actor_create');
 Route::delete('/actors/{actor}', [ActorController::class, 'destroy'])->name('actor_destroy');
+Route::put('/actors/{actor}', [ActorController::class, 'update'])->name('actor_update');
 Route::post('/actors', [ActorController::class, 'store'])->name('actor_store');
 Route::get('/actors', [ActorController::class, 'index'])->name('actor_index');
 

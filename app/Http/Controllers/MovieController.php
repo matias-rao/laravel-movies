@@ -96,6 +96,7 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
+
         $data = $request->validate([
             'name' => 'required|string',
             'year' => 'required|integer',
@@ -103,7 +104,12 @@ class MovieController extends Controller
             'genres' => 'exists:genres,id',
         ]);
 
-        return redirect()->route('movie_index');;
+        $movie->update($data);
+
+        return redirect()->route('movie_index')->with('alert',[
+            'type' => 'success',
+            'message' => "Movie $movie->name updated"
+        ]);
     }
 
     /**
@@ -114,6 +120,12 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        $movie->delete();
+
+        return redirect()->route('movie_index')->with('alert',[
+            'type' => 'danger',
+            'message' => "Movie $movie->name deleted"
+        ]);
+
     }
 }

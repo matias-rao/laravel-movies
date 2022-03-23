@@ -89,7 +89,13 @@ class DirectorController extends Controller
         $data = $request->validate([
             'name' => 'required|string'
         ]);
-        dd($data);
+
+        $director->update($data);
+
+        return redirect()->route('director_index')->with('alert',[
+            'type' => 'success',
+            'message' => "Director $director->name updated"
+        ]);
     }
 
     /**
@@ -100,6 +106,11 @@ class DirectorController extends Controller
      */
     public function destroy(Director $director)
     {
-        //
+        $director->delete();
+
+        return redirect()->route('director_index')->with('alert',[
+            'type' => 'danger',
+            'message' => "Director $director->name deleted"
+        ]);
     }
 }

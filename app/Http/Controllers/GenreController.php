@@ -89,7 +89,13 @@ class GenreController extends Controller
         $data = $request->validate([
             'name' => 'required|string'
         ]);
-        dd($data);
+
+        $genre->update($data);
+
+        return redirect()->route('genre_index')->with('alert', [
+           'type' => 'success',
+           'message'=> "Genre $genre->name updated"
+        ]);
     }
 
     /**
@@ -100,6 +106,12 @@ class GenreController extends Controller
      */
     public function destroy(Genre $genre)
     {
-        //
+        $genre->delete();
+
+        return redirect()->route('genre_index')->with('alert', [
+            'type' => 'danger',
+            'message'=> "Genre $genre->name deleted"
+        ]);
+
     }
 }
