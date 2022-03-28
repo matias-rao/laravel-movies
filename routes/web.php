@@ -30,6 +30,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //Actors
 Route::get('/actors/{actor}/edit', [ActorController::class, 'edit'])->name('actor_edit');
 Route::get('/actors/create', [ActorController::class, 'create'])->name('actor_create');
+Route::get('/actors/{actor}', [ActorController::class, 'show'])->name('actor_show');
 Route::delete('/actors/{actor}', [ActorController::class, 'destroy'])->name('actor_destroy');
 Route::put('/actors/{actor}', [ActorController::class, 'update'])->name('actor_update');
 Route::post('/actors', [ActorController::class, 'store'])->name('actor_store');

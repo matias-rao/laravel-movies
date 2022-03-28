@@ -1,12 +1,16 @@
+@props(['name', 'data'])
+{{--@dd($data)--}}
 <div class="row mb-3">
-    <label for="genres" class="col-md-4 col-form-label text-md-end">genres</label>
+    <label for="{{$name}}" class="col-md-4 col-form-label text-md-end">{{$name}}</label>
 
     <div class="col-md-6">
-        <select name="genres[]" multiple="multiple">
-            <option value=""> Selecciona un director</option>
-            @foreach($genres as $genre)
-                <option value="{{$genre->id}}"> {{$genre->genre}}</option>
+        <select name="{{$name}}" >
+            <option value=""> Selecciona un {{$name}}</option>
+
+            @foreach($data as $value)
+                <option value="{{$value->id}}"> {{$value->name}}</option>
             @endforeach
+
         </select>
     </div>
 </div>

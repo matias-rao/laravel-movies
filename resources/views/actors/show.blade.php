@@ -5,16 +5,13 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Edit Actor</div>
+                    <div class="card-header">Show Actor</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('actor_update', $actor->id) }}" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
 
-                            <x-field name="name" type="text" value="{{$actor->name}}"></x-field>
-                            <x-field name="picture" type="file" value=""></x-field>
-{{--                            <input type="file" name="picture">--}}
+
+                            <h2>{{$actor->name}}</h2>
+                            <img src="{{$actor->picture}}">
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
@@ -23,7 +20,6 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>

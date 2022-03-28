@@ -7,6 +7,7 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 class ActorController extends Controller
 {
@@ -44,14 +45,12 @@ class ActorController extends Controller
      */
     public function store(Request $request)
     {
-//        $validator = Validator::make($request->all(), [
-//            'name' => 'required|string',
-//        ]);
-
-        $actor= Actor::create([
-            'name' => $request['name'],
-            'gender' => 'M'
+        $data = $request->validate([
+            'name' => 'required|string',
+            'picture' => 'nullable|image'
         ]);
+
+        $actor= Actor::create($data);
 
         return redirect()->route('actor_index');
     }
@@ -64,7 +63,7 @@ class ActorController extends Controller
      */
     public function show(Actor $actor)
     {
-        //
+        return view('actors.show', compact('actor'));
     }
 
     /**
@@ -87,9 +86,21 @@ class ActorController extends Controller
      */
     public function update(Request $request, Actor $actor)
     {
-        $validator = Validator::make($request->all(), [
+        $data = $request->validate([
             'name' => 'required|string',
+            'picture' => 'nullable|image'
         ]);
+//        dd($request->all());
+
+        if(array_key_exists('picture', $data)){
+            $picture = $data['picture']->store('pictures', 'public');
+//            dd($picture);
+            Image::make(public_path("storage/$picture"))->save();
+            $data['picture'] = "storage/$picture";
+        }
+        $actor->update($data);
+
+        return redirect()->route('actor_index');
     }
 
     /**

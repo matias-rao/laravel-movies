@@ -19,7 +19,7 @@
                                 <label for="director" class="col-md-4 col-form-label text-md-end">Director</label>
 
                                 <div class="col-md-6">
-                                    <select name="director">
+                                    <select name="director_id">
                                         <option value=""> Selecciona un director</option>
                                         @foreach($directors as $director)
                                             <option value="{{$director->id}}"> {{$director->name}}</option>
@@ -41,6 +41,8 @@
                                 </div>
                             </div>
 
+{{--                            <x-select name="genres" data="{{$genres}}"></x-select>--}}
+                            <x-select name="director" :data=$directo></x-select>
 
 
                             <div class="row mb-0">

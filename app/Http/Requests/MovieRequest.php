@@ -29,7 +29,7 @@ class MovieRequest extends FormRequest
             'year' => 'required|integer',
             'director_id' => ['required', Rule::exists('directors','id')],
             'genres' => ['required', 'array'],
-            'genres.*' => ['required', Rule::exists('genres','id')]
+            'genres.*' => [Rule::exists('genres','id')]
         ];
     }
 }

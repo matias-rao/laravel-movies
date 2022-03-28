@@ -22,7 +22,7 @@
                                     <select name="director_id">
                                         <option value=""> Selecciona un director</option>
                                         @foreach($directors as $director)
-                                            <option value="{{$director->id}}"> {{$director->name}}</option>
+                                            <option @if($director->id == $movie->director_id) selected @endif value="{{$director->id}}"> {{$director->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

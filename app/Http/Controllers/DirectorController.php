@@ -40,9 +40,11 @@ class DirectorController extends Controller
      */
     public function store(Request $request)
     {
-        $director = Director::create([
-            'name'=> $request['name'],
+        $data = $request->validate([
+            'name'=> 'required|string'
         ]);
+
+        $director = Director::create($data);
 
         return redirect()->route('director_index');
     }

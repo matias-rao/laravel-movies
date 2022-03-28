@@ -40,17 +40,11 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        $genre = Genre::where('name', $request->name)->first();
-
-        if($genre){
-            return back()
-                ->withErrors(['name' => 'Ya tiene un genero con ese nombre'])
-                ->withInput(['name' => $request->name]);
-        }
-
-        $genre= Genre::create([
-            'name' =>$request['name']
+        $data = $request->validate([
+            'name' => 'required|string'
         ]);
+
+        $genre= Genre::create($data);
 
         return redirect()->route('genre_index');
     }
@@ -92,10 +86,7 @@ class GenreController extends Controller
 
         $genre->update($data);
 
-        return redirect()->route('genre_index')->with('alert', [
-           'type' => 'success',
-           'message'=> "Genre $genre->name updated"
-        ]);
+        return redirect()->route('genre_index');
     }
 
     /**
@@ -108,10 +99,6 @@ class GenreController extends Controller
     {
         $genre->delete();
 
-        return redirect()->route('genre_index')->with('alert', [
-            'type' => 'danger',
-            'message'=> "Genre $genre->name deleted"
-        ]);
-
+        return redirect()->route('genre_index');
     }
 }
