@@ -12,7 +12,7 @@
                             @csrf
                             @method('PUT')
 
-                            <x-field name="name" type="text"></x-field>
+                            <x-field name="name" type="text" value="{{$genre->name}}"></x-field>
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">

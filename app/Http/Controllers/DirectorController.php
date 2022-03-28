@@ -40,14 +40,6 @@ class DirectorController extends Controller
      */
     public function store(Request $request)
     {
-        $director = Director::where('name', $request->name)->first();
-
-        if($director){
-            return back()
-                ->withErrors(['name' => 'Ya tiene un director con ese nombre'])
-                ->withInput(['name' => $request->name]);
-        }
-
         $director = Director::create([
             'name'=> $request['name'],
         ]);
@@ -92,10 +84,7 @@ class DirectorController extends Controller
 
         $director->update($data);
 
-        return redirect()->route('director_index')->with('alert',[
-            'type' => 'success',
-            'message' => "Director $director->name updated"
-        ]);
+        return redirect()->route('director_index');
     }
 
     /**
@@ -108,9 +97,6 @@ class DirectorController extends Controller
     {
         $director->delete();
 
-        return redirect()->route('director_index')->with('alert',[
-            'type' => 'danger',
-            'message' => "Director $director->name deleted"
-        ]);
+        return redirect()->route('director_index');
     }
 }

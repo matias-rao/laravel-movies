@@ -11,9 +11,9 @@
                         <form method="POST" action="{{ route('movie_update', $movie->id) }}">
                             @csrf
                             @method('PUT')
-
-                            <x-field name="name" type="text"></x-field>
-                            <x-field name="year" type="number"></x-field>
+`
+                            <x-field name="name" type="text" value="{{$movie->name}}"></x-field>
+                            <x-field name="year" type="number" value="{{$movie->year}}"></x-field>
 
                             <div class="row mb-3">
                                 <label for="director" class="col-md-4 col-form-label text-md-end">Director</label>

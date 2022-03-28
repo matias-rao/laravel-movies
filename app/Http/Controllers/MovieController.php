@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MovieRequest;
 use App\Models\Director;
 use App\Models\Movie;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class MovieController extends Controller
 {
@@ -40,26 +43,23 @@ class MovieController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+//     * @param  \Illuminate\Http\Request  $request
+//     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MovieRequest $request)
     {
-        $movie = Movie::where('name', $request->name)->first();
-        if($movie){
-            return back()
-                ->withErrors(['name' => 'Ya tiene una pelicula con ese nombre'])
-                ->withInput(['name' => $request->name]);
-        }
-        $movie= Movie::create([
-            'name'=>$request['name'],
-            'year'=>$request['year'],
-            'rank'=>'1',
-            'director_id'=> $request['director'],
-        ]);
+//        $data = Validator::make($request->all(),[
+//            'name' => 'required|string',
+//            'year' => 'required|integer',
+//            'director_id' => ['required', Rule::exists('directors','id')],
+//            'genres' => 'required|array',
+//            'genres.*' => ['required', Rule::exists('genres','id')]
+//        ])
+        $data = $request->validated();
 
-        $movie->genres()->attach($request['genres']);
-
+        dd($data);
+        $movie = Movie::create($data);
+//        $movie->genres()->attach($request['genres']);
         return redirect()->route('movie_index');
     }
 
@@ -94,22 +94,21 @@ class MovieController extends Controller
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movie $movie)
+    public function update(MovieRequest $request, Movie $movie)
     {
 
-        $data = $request->validate([
-            'name' => 'required|string',
-            'year' => 'required|integer',
-            'director_id' => 'exists:directors,id',
-            'genres' => 'exists:genres,id',
-        ]);
-
+//        $data = Validator::make($request->all(),[
+//            'name' => 'required|string',
+//            'year' => 'required|integer',
+//            'director_id' => ['required', Rule::exists('directors','id')],
+//            'genres' => 'required|array',
+//            'genres.*' => ['required', Rule::exists('genres','id')]
+//        ]);
+        $data = $request->validated();
         $movie->update($data);
+//        dd($movie);
 
-        return redirect()->route('movie_index')->with('alert',[
-            'type' => 'success',
-            'message' => "Movie $movie->name updated"
-        ]);
+        return redirect()->route('movie_index');
     }
 
     /**
@@ -122,10 +121,6 @@ class MovieController extends Controller
     {
         $movie->delete();
 
-        return redirect()->route('movie_index')->with('alert',[
-            'type' => 'danger',
-            'message' => "Movie $movie->name deleted"
-        ]);
-
+        return redirect()->route('movie_index');
     }
 }

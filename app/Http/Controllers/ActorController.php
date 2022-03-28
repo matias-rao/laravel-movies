@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actor;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class ActorController extends Controller
 {
@@ -41,9 +44,11 @@ class ActorController extends Controller
      */
     public function store(Request $request)
     {
-        $actor = new actor;
+//        $validator = Validator::make($request->all(), [
+//            'name' => 'required|string',
+//        ]);
 
-        $actor->create([
+        $actor= Actor::create([
             'name' => $request['name'],
             'gender' => 'M'
         ]);
@@ -70,7 +75,7 @@ class ActorController extends Controller
      */
     public function edit(Actor $actor)
     {
-        //
+        return view('actors.edit', compact('actor'));
     }
 
     /**
@@ -82,7 +87,9 @@ class ActorController extends Controller
      */
     public function update(Request $request, Actor $actor)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+        ]);
     }
 
     /**

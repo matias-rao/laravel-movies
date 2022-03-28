@@ -26,5 +26,10 @@
         @endforeach
         </tbody>
     </table>
+        <a href="{{route('actor_create')}}">
+            <button class="btn btn-primary" type="button">
+                Add Actor
+            </button>
+        </a>
     </div>
 @endsection
