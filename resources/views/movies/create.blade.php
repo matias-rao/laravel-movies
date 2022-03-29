@@ -14,36 +14,8 @@
                             <x-field name="name" type="text" value=""></x-field>
                             <x-field name="year" type="number" value=""></x-field>
 
-
-                            <div class="row mb-3">
-                                <label for="director" class="col-md-4 col-form-label text-md-end">Director</label>
-
-                                <div class="col-md-6">
-                                    <select name="director_id">
-                                        <option value=""> Selecciona un director</option>
-                                        @foreach($directors as $director)
-                                            <option value="{{$director->id}}"> {{$director->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="genres" class="col-md-4 col-form-label text-md-end">Genres</label>
-
-                                <div class="col-md-6">
-                                    <select name="genres[]" multiple="multiple">
-                                        <option value=""> Selecciona un genero</option>
-                                        @foreach($genres as $genre)
-                                            <option value="{{$genre->id}}"> {{$genre->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-{{--                            <x-select name="genres" data="{{$genres}}"></x-select>--}}
-                            <x-select name="director" :data=$directo></x-select>
-
+                            <x-select name="Director" :data=$directors value="director_id" multiple="false"></x-select>
+                            <x-select name="Genero" :data=$genres value="genres[]" multiple="true"></x-select>
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">

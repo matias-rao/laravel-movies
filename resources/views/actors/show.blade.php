@@ -8,18 +8,8 @@
                     <div class="card-header">Show Actor</div>
 
                     <div class="card-body">
-
-
-                            <h2>{{$actor->name}}</h2>
-                            <img src="{{$actor->picture}}">
-
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Submit
-                                    </button>
-                                </div>
-                            </div>
+                        <h2>{{$actor->name}}</h2>
+                        <img src="{{ url("$actor->picture")}}">
                     </div>
                 </div>
             </div>

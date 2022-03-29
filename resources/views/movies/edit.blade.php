@@ -6,7 +6,6 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Create Movies</div>
-
                     <div class="card-body">
                         <form method="POST" action="{{ route('movie_update', $movie->id) }}">
                             @csrf
@@ -15,32 +14,8 @@
                             <x-field name="name" type="text" value="{{$movie->name}}"></x-field>
                             <x-field name="year" type="number" value="{{$movie->year}}"></x-field>
 
-                            <div class="row mb-3">
-                                <label for="director" class="col-md-4 col-form-label text-md-end">Director</label>
-
-                                <div class="col-md-6">
-                                    <select name="director_id">
-                                        <option value=""> Selecciona un director</option>
-                                        @foreach($directors as $director)
-                                            <option @if($director->id == $movie->director_id) selected @endif value="{{$director->id}}"> {{$director->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="genres" class="col-md-4 col-form-label text-md-end">Genres</label>
-
-                                <div class="col-md-6">
-                                    <select name="genres[]" multiple="multiple">
-                                        <option value=""> Selecciona un director</option>
-                                        @foreach($genres as $genre)
-                                            <option value="{{$genre->id}}"> {{$genre->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
+                            <x-select label="Director" :data=$directors name="director_id" multiple="false" valuee="{{$movie->director_id}}"></x-select>
+                            <x-select label="Genero" :data=$genres name="genres[]" multiple="true" :valuee="$movie->genres" ></x-select>
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">

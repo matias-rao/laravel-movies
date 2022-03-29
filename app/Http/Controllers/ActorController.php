@@ -63,6 +63,7 @@ class ActorController extends Controller
      */
     public function show(Actor $actor)
     {
+//        dd($actor->picture);
         return view('actors.show', compact('actor'));
     }
 
@@ -94,9 +95,9 @@ class ActorController extends Controller
 
         if(array_key_exists('picture', $data)){
             $picture = $data['picture']->store('pictures', 'public');
-//            dd($picture);
             Image::make(public_path("storage/$picture"))->save();
             $data['picture'] = "storage/$picture";
+//            dd($data);
         }
         $actor->update($data);
 
