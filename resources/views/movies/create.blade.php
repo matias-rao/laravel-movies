@@ -14,8 +14,8 @@
                             <x-field name="name" type="text" value=""></x-field>
                             <x-field name="year" type="number" value=""></x-field>
 
-                            <x-select name="Director" :data=$directors value="director_id" multiple="false"></x-select>
-                            <x-select name="Genero" :data=$genres value="genres[]" multiple="true"></x-select>
+                            <x-select label="Director" :options=$directors name="director_id" multiple="false" value=""></x-select>
+                            <x-select label="Genero" :options=$genres name="genres[]" multiple="true" value=""></x-select>
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">

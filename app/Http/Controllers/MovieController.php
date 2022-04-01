@@ -46,20 +46,11 @@ class MovieController extends Controller
 //     * @param  \Illuminate\Http\Request  $request
 //     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MovieRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string',
-            'year' => 'required|integer',
-            'director_id' => 'required|exists:directors,id',
-            'genres' => 'required|array',
-            'genres.*' => 'required|exists:genres,id'
-        ]);
-//        dd($request);
-//        $data = $request->validated();
+        $data = $request->validated();
 
         $movie = Movie::create($data);
-
         $movie->genres()->attach($request['genres']);
 
         return redirect()->route('movie_index');
@@ -98,19 +89,11 @@ class MovieController extends Controller
      */
     public function update(MovieRequest $request, Movie $movie)
     {
-//        $data = Validator::make($request->all(),[
-//            'name' => 'required|string',
-//            'year' => 'required|integer',
-//            'director_id' => ['required', Rule::exists('directors','id')],
-//            'genres' => 'required|array',
-//            'genres.*' => ['required', Rule::exists('genres','id')]
-//        ]);
         $data = $request->validated();
 
+        $movie->genres()->detach();
         $movie->genres()->attach($request['genres']);
         $movie->update($data);
-
-//        dd($movie);
 
         return redirect()->route('movie_index');
     }

@@ -14,8 +14,8 @@
                             <x-field name="name" type="text" value="{{$movie->name}}"></x-field>
                             <x-field name="year" type="number" value="{{$movie->year}}"></x-field>
 
-                            <x-select label="Director" :data=$directors name="director_id" multiple="false" valuee="{{$movie->director_id}}"></x-select>
-                            <x-select label="Genero" :data=$genres name="genres[]" multiple="true" :valuee="$movie->genres" ></x-select>
+                            <x-select label="Director" :options=$directors name="director_id" multiple="false" :value="$movie->director_id"></x-select>
+                            <x-select label="Genero" :options=$genres name="genres[]" multiple="true" :value="$movie->genres" ></x-select>
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">

@@ -15,7 +15,7 @@
         @foreach($actors as $actor)
         <tr>
             <th scope="row">{{$actor->id}}</th>
-            <td>{{$actor->name}}</td>
+            <td><a href="{{route('actor_show', $actor->id)}}">{{$actor->name}}</a></td>
             <td>
                 <div class="d-flex justify-content-end">
                     <div><a href="{{route('actor_edit', $actor->id)}}" class="btn btn-primary">Edit</a> </div>

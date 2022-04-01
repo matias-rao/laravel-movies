@@ -11,7 +11,7 @@
                         <form method="POST" action="{{ route('actor_store') }}">
                             @csrf
 
-                            <x-field name="name" type="text" value=""></x-field>
+                            <x-field name="Name" type="text" value=""></x-field>
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
