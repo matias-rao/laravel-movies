@@ -8,7 +8,7 @@
                     <div class="card-header">Create Movies</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('movie_store') }}" novalidate>
+                        <form method="POST" action="{{ route('movies.store') }}" novalidate>
                             @csrf
 
                             <x-field name="name" type="text" value=""></x-field>

@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">Create Movies</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('movie_update', $movie->id) }}">
+                        <form method="POST" action="{{ route('movies.update', $movie->id) }}">
                             @csrf
                             @method('PUT')
 `

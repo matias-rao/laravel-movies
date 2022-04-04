@@ -19,9 +19,9 @@
 
                     <td>
                         <div class="d-flex justify-content-end">
-                            <div><a href="{{route('genre_edit', $genre->id)}}" class="btn btn-primary">Edit</a> </div>
+                            <div><a href="{{route('genres.edit', $genre->id)}}" class="btn btn-primary">Edit</a> </div>
                             <div>
-                                <form method="POST" action="{{route('genre_destroy', $genre->id)}}">
+                                <form method="POST" action="{{route('genres.destroy', $genre->id)}}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">
@@ -35,7 +35,7 @@
             @endforeach
             </tbody>
         </table>
-        <a href="{{route('genre_create')}}">
+        <a href="{{route('genres.create')}}">
             <button class="btn btn-primary" type="button">
                 Add Genre
             </button>

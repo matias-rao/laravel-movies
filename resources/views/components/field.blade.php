@@ -1,4 +1,4 @@
-@props(['name', 'type', 'value'])
+@props(['name', 'type', 'value' => ""])
 {{--@dd($value)--}}
 <div class="row mb-3">
     <label for="{{$name}}"
@@ -8,7 +8,7 @@
         <input id="{{$name}}" type="{{$type}}"
                class="form-control @error($name) is-invalid @enderror"
                name="{{$name}}"
-               value="{{old('value') ?? $value}}" required autocomplete="name" autofocus>
+               value="{{old('value') ?? $value}}"  autocomplete="name" autofocus>
 
         @error($name)
         <span class="invalid-feedback" role="alert">

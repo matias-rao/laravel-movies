@@ -8,7 +8,7 @@
                     <div class="card-header">Create Directors</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('director_store') }}">
+                        <form method="POST" action="{{ route('directors.store') }}">
                             @csrf
 
                             <x-field name="name" type="text" value=""></x-field>

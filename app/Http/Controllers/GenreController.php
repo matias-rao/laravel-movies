@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GenreRequest;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 
 class GenreController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -38,15 +35,13 @@ class GenreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GenreRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string'
-        ]);
+        $data = $request->validated();
 
         $genre= Genre::create($data);
 
-        return redirect()->route('genre_index');
+        return redirect()->route('genres.index');
     }
 
     /**
@@ -78,15 +73,13 @@ class GenreController extends Controller
      * @param  \App\Models\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Genre $genre)
+    public function update(GenreRequest $request, Genre $genre)
     {
-        $data = $request->validate([
-            'name' => 'required|string'
-        ]);
+        $data = $request->validated();
 
         $genre->update($data);
 
-        return redirect()->route('genre_index');
+        return redirect()->route('genres.index');
     }
 
     /**
@@ -99,6 +92,6 @@ class GenreController extends Controller
     {
         $genre->delete();
 
-        return redirect()->route('genre_index');
+        return redirect()->route('genres.index');
     }
 }

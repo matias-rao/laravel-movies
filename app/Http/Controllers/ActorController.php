@@ -5,17 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Actor;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use App\Http\Requests\ActorRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
 class ActorController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +20,10 @@ class ActorController extends Controller
     public function index()
     {
         $actors = Actor::all();
-        return view('actors.index', compact('actors'));
+
+        return view('actors.index')
+//            ->withActors($actors) // En actors.index vas a tener una variable $actors
+            ->with('actors' , $actors); // Lo mismo
     }
 
     /**
@@ -43,16 +42,14 @@ class ActorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    //TODO: Agregar FormRequest en metodo store de ActorsController
+    public function store(ActorRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string',
-            'picture' => 'nullable|image'
-        ]);
+        $data = $request->validated();
 
-        $actor= Actor::create($data);
+        $actor = Actor::create($data);
 
-        return redirect()->route('actor_index');
+        return redirect()->route('actors.index');
     }
 
     /**
@@ -63,7 +60,6 @@ class ActorController extends Controller
      */
     public function show(Actor $actor)
     {
-//        dd($actor->picture);
         return view('actors.show', compact('actor'));
     }
 
@@ -85,23 +81,20 @@ class ActorController extends Controller
      * @param  \App\Models\Actor  $actor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Actor $actor)
+    //TODO: Agregar FormRequest en metodo update de ActorsController
+    public function update(ActorRequest $request, Actor $actor)
     {
-        $data = $request->validate([
-            'name' => 'required|string',
-            'picture' => 'nullable|image'
-        ]);
-//        dd($request->all());
+        $data = $request->validated();
 
         if(array_key_exists('picture', $data)){
             $picture = $data['picture']->store('pictures', 'public');
-            Image::make(public_path("storage/$picture"))->save();
+            Image::make(public_path("storage/$picture"))->fit(100,100)->save();
             $data['picture'] = "storage/$picture";
-//            dd($data);
         }
+
         $actor->update($data);
 
-        return redirect()->route('actor_index');
+        return redirect()->route('actors.show', $actor->id);
     }
 
     /**
@@ -110,8 +103,11 @@ class ActorController extends Controller
      * @param  \App\Models\Actor  $actor
      * @return \Illuminate\Http\Response
      */
+    //TODO: ActorsControllers: eliminar un actor.
     public function destroy(Actor $actor)
     {
-        //
+        $actor->delete();
+
+        return redirect()->route('actors.index');
     }
 }

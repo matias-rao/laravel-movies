@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\Validator;
 
 class MovieController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -53,7 +49,7 @@ class MovieController extends Controller
         $movie = Movie::create($data);
         $movie->genres()->attach($request['genres']);
 
-        return redirect()->route('movie_index');
+        return redirect()->route('movies.index');
     }
 
     /**
@@ -90,12 +86,11 @@ class MovieController extends Controller
     public function update(MovieRequest $request, Movie $movie)
     {
         $data = $request->validated();
-
-        $movie->genres()->detach();
-        $movie->genres()->attach($request['genres']);
+        // El sync es para evitar hacer detach y attach, se sincroniza la request
+        $movie->genres()->sync($request['genres']);
         $movie->update($data);
 
-        return redirect()->route('movie_index');
+        return redirect()->route('movies.index');
     }
 
     /**
@@ -108,6 +103,6 @@ class MovieController extends Controller
     {
         $movie->delete();
 
-        return redirect()->route('movie_index');
+        return redirect()->route('movies.index');
     }
 }

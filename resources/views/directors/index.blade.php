@@ -24,10 +24,10 @@
                     </td>
                     <td>
                         <div class="d-flex justify-content-end">
-                            <div><a href="{{route('director_edit', $director->id)}}" class="btn btn-primary">Edit</a>
+                            <div><a href="{{route('directors.edit', $director->id)}}" class="btn btn-primary">Edit</a>
                             </div>
                             <div>
-                                <form method="POST" action="{{route('director_destroy', $director->id)}}">
+                                <form method="POST" action="{{route('directors.destroy', $director->id)}}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">
@@ -41,7 +41,7 @@
             @endforeach
             </tbody>
         </table>
-        <a href="{{route('director_create')}}">
+        <a href="{{route('directors.create')}}">
             <button class="btn btn-primary" type="button">
                 Add Director
             </button>

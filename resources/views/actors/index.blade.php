@@ -15,18 +15,26 @@
         @foreach($actors as $actor)
         <tr>
             <th scope="row">{{$actor->id}}</th>
-            <td><a href="{{route('actor_show', $actor->id)}}">{{$actor->name}}</a></td>
+            <td><a href="{{route('actors.show', $actor->id)}}">{{$actor->name}}</a></td>
             <td>
                 <div class="d-flex justify-content-end">
-                    <div><a href="{{route('actor_edit', $actor->id)}}" class="btn btn-primary">Edit</a> </div>
-                    <div><a href="{{route('actor_destroy', $actor->id)}}" class="btn btn-danger">Delete</a> </div>
+                    <div><a href="{{route('actors.edit', $actor->id)}}" class="btn btn-primary">Edit</a> </div>
+                    <div>
+                        <form method="POST" action="{{route('actors.destroy', $actor->id)}}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </td>
         </tr>
         @endforeach
         </tbody>
     </table>
-        <a href="{{route('actor_create')}}">
+        <a href="{{route('actors.create')}}">
             <button class="btn btn-primary" type="button">
                 Add Actor
             </button>

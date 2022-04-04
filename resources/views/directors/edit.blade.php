@@ -8,7 +8,7 @@
                     <div class="card-header">Edit Director</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('director_update', $director->id) }}">
+                        <form method="POST" action="{{ route('directors.update', $director->id) }}">
                             @csrf
                             @method('PUT')
 

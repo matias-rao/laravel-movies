@@ -8,7 +8,7 @@
                     <div class="card-header">Edit Genres</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('genre_update', $genre->id) }}">
+                        <form method="POST" action="{{ route('genres.update', $genre->id) }}">
                             @csrf
                             @method('PUT')
 

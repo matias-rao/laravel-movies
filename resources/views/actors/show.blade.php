@@ -12,6 +12,11 @@
                         <img src="{{ url("$actor->picture")}}">
                     </div>
                 </div>
+                <a href="{{route('actors.index')}}">
+                    <button class="btn btn-primary" type="button">
+                        Actors
+                    </button>
+                </a>
             </div>
         </div>
     </div>

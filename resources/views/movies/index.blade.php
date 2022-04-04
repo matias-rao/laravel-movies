@@ -27,9 +27,9 @@
 
                     <td>
                         <div class="d-flex justify-content-end">
-                            <div><a href="{{route('movie_edit', $movie->id)}}" class="btn btn-primary">Edit</a></div>
+                            <div><a href="{{route('movies.edit', $movie->id)}}" class="btn btn-primary">Edit</a></div>
                             <div>
-                                <form method="POST" action="{{route('movie_destroy', $movie->id)}}">
+                                <form method="POST" action="{{route('movies.destroy', $movie->id)}}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">
@@ -44,7 +44,7 @@
             @endforeach
             </tbody>
         </table>
-        <a href="{{route('movie_create')}}">
+        <a href="{{route('movies.create')}}">
             <button class="btn btn-primary" type="button">
                 Add Movie
             </button>

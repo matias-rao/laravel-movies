@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -8,10 +7,11 @@
                     <div class="card-header">Create Actors</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('actor_store') }}">
+                        <form method="POST" action="{{ route('actors.store') }}">
                             @csrf
 
-                            <x-field name="Name" type="text" value=""></x-field>
+                            <x-field name="name" type="text"></x-field>
+                            <x-field name="picture" type="file" ></x-field>
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">

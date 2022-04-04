@@ -8,7 +8,7 @@
                     <div class="card-header">Create Genres</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('genre_store') }}">
+                        <form method="POST" action="{{ route('genres.store') }}">
                             @csrf
 
                             <x-field name="name" type="text" value=""></x-field>

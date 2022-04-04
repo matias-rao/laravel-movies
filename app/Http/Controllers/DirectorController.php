@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DirectorRequest;
 use App\Models\Director;
 use Illuminate\Http\Request;
 
 class DirectorController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -38,15 +35,13 @@ class DirectorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DirectorRequest $request)
     {
-        $data = $request->validate([
-            'name'=> 'required|string'
-        ]);
+        $data = $request->validated();
 
         $director = Director::create($data);
 
-        return redirect()->route('director_index');
+        return redirect()->route('directors.index');
     }
 
     /**
@@ -78,15 +73,13 @@ class DirectorController extends Controller
      * @param  \App\Models\Director  $director
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Director $director)
+    public function update(DirectorRequest $request, Director $director)
     {
-        $data = $request->validate([
-            'name' => 'required|string'
-        ]);
+        $data = $request->validated();
 
         $director->update($data);
 
-        return redirect()->route('director_index');
+        return redirect()->route('directors.index');
     }
 
     /**
@@ -99,6 +92,6 @@ class DirectorController extends Controller
     {
         $director->delete();
 
-        return redirect()->route('director_index');
+        return redirect()->route('directors.index');
     }
 }
